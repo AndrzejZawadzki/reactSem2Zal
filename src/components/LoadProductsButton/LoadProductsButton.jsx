@@ -48,7 +48,11 @@ const LoadProductsButton = () => {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Button variant="outlined" onClick={loadProducts} disabled={showProgress}>
+      <Button
+        variant="contained"
+        onClick={loadProducts}
+        disabled={showProgress}
+      >
         Load
       </Button>
       {showProgress && (
