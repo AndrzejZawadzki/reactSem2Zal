@@ -10,7 +10,6 @@ const ShoppingList = () => {
     setShoppingList,
     removeFromShoppingList,
     fetchShoppingList,
-    shoppingLoading,
   } = useContext(ProductContext);
 
   useEffect(() => {
@@ -21,9 +20,6 @@ const ShoppingList = () => {
     loadShoppingList();
   }, [fetchShoppingList, setShoppingList]);
 
-  if (shoppingLoading) {
-    return <LinearProgress />;
-  }
   return (
     <div className="App">
       <header className="AppHeader">

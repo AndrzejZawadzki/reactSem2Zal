@@ -4,12 +4,28 @@ export const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [filterCriteria, setFilterCriteria] = useState("");
   const [shoppingList, setShoppingList] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [shoppingLoading, setShoppingLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const filterProducts = (criteria) => {
+    setFilterCriteria(criteria);
+    if (criteria === "") {
+      setFilteredProducts(products);
+    } else {
+      setFilteredProducts(
+        products.filter((product) =>
+          product.name.toLowerCase().includes(criteria.toLowerCase())
+        )
+      );
+    }
+  };
 
   const addToShoppingList = async (product) => {
+    setShoppingLoading(true);
     try {
       const response = await fetch("http://localhost:4000/api/shoppingList", {
         method: "POST",
@@ -23,10 +39,14 @@ export const ProductProvider = ({ children }) => {
       setShoppingList(newShoppingList);
     } catch (error) {
       console.error(error);
+      setError(error.message);
+    } finally {
+      setShoppingLoading(false);
     }
   };
 
   const removeFromShoppingList = async (id) => {
+    setShoppingLoading(true);
     try {
       const response = await fetch(
         `http://localhost:4000/api/shoppingList/${id}`,
@@ -41,6 +61,9 @@ export const ProductProvider = ({ children }) => {
       );
     } catch (error) {
       console.error(error);
+      setError(error.message);
+    } finally {
+      setShoppingLoading(false);
     }
   };
 
@@ -60,20 +83,100 @@ export const ProductProvider = ({ children }) => {
       value={{
         products,
         setProducts,
+        filteredProducts,
         shoppingList,
         setShoppingList,
         loading,
         setLoading,
-        error,
+        shoppingLoading,
         setError,
         addToShoppingList,
         removeFromShoppingList,
         fetchShoppingList,
-        shoppingLoading,
-        setShoppingLoading,
+        filterProducts,
       }}
     >
       {children}
     </ProductContext.Provider>
   );
 };
+
+// import React, { createContext, useState } from "react";
+
+// export const ProductContext = createContext();
+
+// export const ProductProvider = ({ children }) => {
+//   const [products, setProducts] = useState([]);
+//   const [shoppingList, setShoppingList] = useState([]);
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState(null);
+//   const [shoppingLoading, setShoppingLoading] = useState(false);
+
+//   const addToShoppingList = async (product) => {
+//     try {
+//       const response = await fetch("http://localhost:4000/api/shoppingList", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify(product),
+//       });
+//       if (!response.ok) throw new Error("Failed to add product");
+//       const newShoppingList = await fetchShoppingList();
+//       setShoppingList(newShoppingList);
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+
+//   const removeFromShoppingList = async (id) => {
+//     try {
+//       const response = await fetch(
+//         `http://localhost:4000/api/shoppingList/${id}`,
+//         {
+//           method: "DELETE",
+//         }
+//       );
+//       if (!response.ok) throw new Error("Failed to remove product");
+//       const removedProduct = await response.json();
+//       setShoppingList((prevList) =>
+//         prevList.filter((item) => item.id !== removedProduct.id)
+//       );
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+
+//   const fetchShoppingList = async () => {
+//     try {
+//       const response = await fetch("http://localhost:4000/api/shoppingList");
+//       if (!response.ok) throw new Error("Failed to fetch shopping list");
+//       return await response.json();
+//     } catch (error) {
+//       console.error(error);
+//       return [];
+//     }
+//   };
+
+//   return (
+//     <ProductContext.Provider
+//       value={{
+//         products,
+//         setProducts,
+//         shoppingList,
+//         setShoppingList,
+//         loading,
+//         setLoading,
+//         error,
+//         setError,
+//         addToShoppingList,
+//         removeFromShoppingList,
+//         fetchShoppingList,
+//         shoppingLoading,
+//         setShoppingLoading,
+//       }}
+//     >
+//       {children}
+//     </ProductContext.Provider>
+//   );
+// };

@@ -39,12 +39,13 @@ const LoadProductsButton = () => {
       });
       const data = await response.json();
       setProducts(data);
+      setFilteredProducts(data);
     } catch (error) {
       setError("Failed to load products");
       console.error("Failed to load products:", error);
     } finally {
       setLoading(false);
-      setTimeout(() => setShowProgress(false), 100); // Hide progress bar after 3 seconds
+      setTimeout(() => setShowProgress(false), 100);
     }
   };
 
