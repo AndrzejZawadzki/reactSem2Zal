@@ -4,7 +4,7 @@ const ShopingList = () => {
   return (
     <div className="App">
       <header className="AppHeader">
-        <p>Shoping List</p>
+        <p style={{ color: "black" }}>Shoping List</p>
       </header>
     </div>
   );
