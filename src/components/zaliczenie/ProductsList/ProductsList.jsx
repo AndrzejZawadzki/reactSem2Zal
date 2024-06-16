@@ -1,14 +1,10 @@
-import { ProductContext } from "../../../context/ProductContext";
-import LoadProductsButton from "../../LoadProductsButton/LoadProductsButton";
-import "../commonStyles.css";
 import React, { useContext } from "react";
+import { ProductContext } from "../../../context/ProductContext";
+import "../commonStyles.css";
+import LoadProductsButton from "../../LoadProductsButton/LoadProductsButton";
 
 const ProductsList = () => {
-  const { products, error } = useContext(ProductContext);
-
-  if (error) {
-    return <p>{error}</p>;
-  }
+  const { products, addToShoppingList } = useContext(ProductContext);
 
   return (
     <div className="App">
@@ -17,7 +13,11 @@ const ProductsList = () => {
         <LoadProductsButton />
         <ul>
           {products.map((product) => (
-            <li key={product.id} style={{ color: "black" }}>
+            <li
+              key={product.id}
+              style={{ color: "black", cursor: "pointer" }}
+              onClick={() => addToShoppingList(product)}
+            >
               {product.name}
             </li>
           ))}

@@ -7,9 +7,6 @@ import Footer from "./components/Footer/Footer";
 import Content from "./components/Content/Content";
 
 import { ProductProvider } from "./context/ProductContext";
-import LoadProductsButton from "./components/LoadProductsButton/LoadProductsButton";
-import ProductsList from "./components/zaliczenie/ProductsList/ProductsList";
-import ShopingList from "./components/zaliczenie/ShopingList/ShopingList";
 
 function App() {
   return (
