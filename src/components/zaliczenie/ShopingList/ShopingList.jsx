@@ -18,7 +18,7 @@ const ShoppingList = () => {
       setShoppingList(list);
     };
     loadShoppingList();
-  }, [fetchShoppingList, setShoppingList]);
+  }, []);
 
   return (
     <div className="App">

@@ -48,6 +48,7 @@ const Login = () => {
             variant="outlined"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            color="primary"
           />
           <Button variant="contained" color="primary" type="submit">
             Submit

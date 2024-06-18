@@ -3,7 +3,6 @@ import React, { createContext, useState } from "react";
 export const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
-  const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [filterCriteria, setFilterCriteria] = useState("");
   const [shoppingList, setShoppingList] = useState([]);
@@ -13,15 +12,12 @@ export const ProductProvider = ({ children }) => {
 
   const filterProducts = (criteria) => {
     setFilterCriteria(criteria);
-    if (criteria === "") {
-      setFilteredProducts(products);
-    } else {
-      setFilteredProducts(
-        products.filter((product) =>
-          product.name.toLowerCase().includes(criteria.toLowerCase())
-        )
-      );
-    }
+    setFilteredProducts(
+      products.filter((product) =>
+        product.name.toLowerCase().includes(criteria.toLowerCase())
+      )
+    );
+    // }
   };
 
   const addToShoppingList = async (product) => {
@@ -81,8 +77,7 @@ export const ProductProvider = ({ children }) => {
   return (
     <ProductContext.Provider
       value={{
-        products,
-        setProducts,
+        setFilteredProducts,
         filteredProducts,
         shoppingList,
         setShoppingList,
