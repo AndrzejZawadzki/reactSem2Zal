@@ -7,12 +7,20 @@ import Footer from "./components/Footer/Footer";
 import Content from "./components/Content/Content";
 
 import { ProductProvider } from "./context/ProductContext";
+import useAuth from "./hooks/useAuth";
 
 function App() {
+  useAuth();
+  const storedUserName = JSON.parse(localStorage.getItem("user"))?.username;
+
   return (
     <ProductProvider>
       <AppWrapper>
-        <Header />
+        <Header>
+          <Paragraph
+            paragraphText={`Cześć, jesteś zalogowany jako: ${storedUserName}`}
+          />
+        </Header>
         <Content>
           <Outlet />
         </Content>

@@ -1,16 +1,16 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Login.css";
+import "./Register.css";
 import { Box, Button, Container, TextField } from "@mui/material";
 import { AuthContext } from "../../context/authContext";
 
-const Login = () => {
+const Register = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { authUser, setAuthUser } = useContext(AuthContext);
 
-  const handleLogin = (event) => {
+  const handleRegister = (event) => {
     event.preventDefault();
     const user = {
       username: username,
@@ -29,12 +29,9 @@ const Login = () => {
       minHeight="100vh"
     >
       <Container maxWidth="xs">
-        <form
-          onSubmit={handleLogin}
-          style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-        >
+        <form style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           <TextField
-            label="Login"
+            label="Register"
             required
             variant="outlined"
             value={username}
@@ -49,8 +46,16 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             color="primary"
           />
+          <Button
+            onSubmit={handleRegister}
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            Register and Login
+          </Button>
           <Button variant="contained" color="primary" type="submit">
-            Submit
+            Go to Login
           </Button>
         </form>
       </Container>
@@ -58,4 +63,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

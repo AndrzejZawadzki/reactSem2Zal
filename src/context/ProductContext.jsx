@@ -3,21 +3,25 @@ import React, { createContext, useState } from "react";
 export const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
+  const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [filterCriteria, setFilterCriteria] = useState("");
+  const [_filterCriteria, setFilterCriteria] = useState("");
   const [shoppingList, setShoppingList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [shoppingLoading, setShoppingLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [_error, setError] = useState(null);
 
   const filterProducts = (criteria) => {
     setFilterCriteria(criteria);
-    setFilteredProducts(
-      products.filter((product) =>
-        product.name.toLowerCase().includes(criteria.toLowerCase())
-      )
-    );
-    // }
+    if (criteria) {
+      setFilteredProducts(
+        products.filter((product) =>
+          product.name.toLowerCase().includes(criteria.toLowerCase())
+        )
+      );
+    } else {
+      setFilteredProducts([]);
+    }
   };
 
   const addToShoppingList = async (product) => {
@@ -77,8 +81,9 @@ export const ProductProvider = ({ children }) => {
   return (
     <ProductContext.Provider
       value={{
-        setFilteredProducts,
+        setProducts,
         filteredProducts,
+        products,
         shoppingList,
         setShoppingList,
         loading,

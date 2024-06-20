@@ -4,7 +4,15 @@ import "../commonStyles.css";
 import LoadProductsButton from "../../LoadProductsButton/LoadProductsButton";
 
 const ProductsList = () => {
-  const { filteredProducts, addToShoppingList } = useContext(ProductContext);
+  const { filteredProducts, addToShoppingList, products } =
+    useContext(ProductContext);
+
+  const productsList = () => {
+    if (filteredProducts.length) {
+      return filteredProducts;
+    }
+    return products;
+  };
 
   return (
     <div className="App">
@@ -12,7 +20,7 @@ const ProductsList = () => {
         <p style={{ color: "black" }}>Products List</p>
         <LoadProductsButton />
         <ul>
-          {filteredProducts.map((product) => (
+          {productsList().map((product) => (
             <li
               key={product.id}
               style={{ color: "black", cursor: "pointer" }}

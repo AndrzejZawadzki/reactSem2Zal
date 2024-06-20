@@ -5,8 +5,7 @@ import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
 
 const LoadProductsButton = () => {
-  const { setFilteredProducts, setLoading, setError } =
-    useContext(ProductContext);
+  const { setProducts, setLoading, setError } = useContext(ProductContext);
   const [progress, setProgress] = useState(0);
   const [showProgress, setShowProgress] = useState(false);
 
@@ -15,7 +14,7 @@ const LoadProductsButton = () => {
     setError(null);
     setProgress(0);
     setShowProgress(true);
-    setFilteredProducts([]);
+    setProducts([]);
 
     const totalDuration = 3000; // Total duration of 3 seconds
     const intervalDuration = 100; // Update progress every 100ms
@@ -39,7 +38,7 @@ const LoadProductsButton = () => {
         },
       });
       const data = await response.json();
-      setFilteredProducts(data);
+      setProducts(data);
     } catch (error) {
       setError("Failed to load products");
       console.error("Failed to load products:", error);

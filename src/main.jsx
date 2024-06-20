@@ -11,6 +11,7 @@ import DashboardContent from "./components/DashboardContent/DashboardContent.jsx
 import { useEffect } from "react";
 import Login from "./components/Login/Login.jsx";
 import { AuthProvider } from "./context/authContext.jsx";
+import Register from "./components/Register/Register.jsx";
 
 const RedirectToDashboard = () => {
   const navigate = useNavigate();
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/signin",
     element: <Login />,
+  },
+  {
+    path: "/signOut",
+    element: <Register />,
   },
   {
     path: "/dashboard",
